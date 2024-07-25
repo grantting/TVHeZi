@@ -21,7 +21,7 @@ jobs:
             distribution: 'adopt'
       - name: Generate Keystore
         run: |
-              cd /home/runner/work/TVNucleon
+              cd /home/runner/work/TVNucleon/TVNucleon
               keytool -genkey -v -keystore TVBoxOSC.jks -alias TVBoxOSC -keyalg RSA -keysize 2048 -validity 10000 -storepass TVBoxOSC -keypass TVBoxOSC -dname "CN=John Doe, OU=Engineering Department, O=ABC Company, L=San Francisco, ST=California, C=US"
         env:
           JAVA_HOME: /usr/lib/jvm/java-11-openjdk-amd64
