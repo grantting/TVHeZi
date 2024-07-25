@@ -14,6 +14,19 @@ jobs:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+            java-version: '11'
+            distribution: 'adopt'
+      - name: Generate Keystore
+        run: |
+              cd /home/runner/work/TVNucleon
+              keytool -genkey -v -keystore TVBoxOSC.jks -alias TVBoxOSC -keyalg RSA -keysize 2048 -validity 10000 -storepass TVBoxOSC -keypass TVBoxOSC
+        env:
+          JAVA_HOME: /usr/lib/jvm/java-11-openjdk-amd64
+          PATH: /usr/lib/jvm/java-11-openjdk-amd64/bin:$PATH
+    
       - name: Build With Gradle
         run: |
           chmod +x gradlew
