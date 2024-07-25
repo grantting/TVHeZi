@@ -129,6 +129,7 @@ abstract class AbsDslDrawable : Drawable() {
     }
 
     //不透明度
+    @Deprecated("Deprecated in Java")
     override fun getOpacity(): Int {
         return if (alpha < 255) PixelFormat.TRANSLUCENT else PixelFormat.OPAQUE
     }
@@ -146,6 +147,7 @@ abstract class AbsDslDrawable : Drawable() {
         return super.mutate()
     }
 
+    @Deprecated("Deprecated in Java")
     override fun setDither(dither: Boolean) {
         textPaint.isDither = dither
         invalidateSelf()
