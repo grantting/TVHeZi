@@ -54,8 +54,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="33dp"
                     android:layout_marginLeft="8dp"
+                    android:text="搜索"
                     android:textSize="15dp"
-                    android:text="搜索" />
+                    app:backgroundTint="@color/colorPrimary" />
             </LinearLayout>
 
             <ScrollView
@@ -69,6 +70,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="top|center_horizontal"
+                    android:background="#F4D9D9"
                     android:clipChildren="false"
                     android:clipToPadding="false"
                     android:orientation="vertical">
@@ -82,7 +84,7 @@
                         app:tv_horizontalSpacingWithMargins="@dimen/dp_5"
                         app:tv_selectedItemIsCentered="true"
                         app:tv_verticalSpacingWithMargins="@dimen/dp_5"
-                        tools:listitem="@layout/item_search_subtitle_result"/>
+                        tools:listitem="@layout/item_search_subtitle_result" />
 
                 </LinearLayout>
             </ScrollView>

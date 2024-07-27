@@ -6,11 +6,12 @@ import android.view.View;
 import androidx.annotation.NonNull;
 
 import com.github.tvbox.osc.R;
-import com.lxj.xpopup.core.BottomPopupView;
+import com.lxj.xpopup.core.CenterPopupView;
 
 import org.jetbrains.annotations.NotNull;
 
-public class AboutDialog extends BottomPopupView {
+
+public class AboutDialog extends CenterPopupView {
 
     public AboutDialog(@NonNull @NotNull Context context) {
         super(context);

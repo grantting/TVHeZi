@@ -33,7 +33,7 @@ public class LastViewedDialog extends PositionPopupView {
     protected void onCreate() {
         super.onCreate();
         TextView textView = findViewById(R.id.tv);
-        textView.setText("上次看到: "+vodInfo.name+" "+vodInfo.note);
+        textView.setText("  上次看到:   "+vodInfo.name+"  "+vodInfo.note + "    ");
         textView.setOnClickListener(view -> {
             FastClickCheckUtil.check(view);
             dismiss();

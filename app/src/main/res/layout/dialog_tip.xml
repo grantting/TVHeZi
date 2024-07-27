@@ -51,12 +51,13 @@
                 android:id="@+id/leftBtn"
                 style="@style/mbOutline"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="33dp"
                 android:layout_marginRight="20dp"
+                android:layout_weight="1"
                 android:text="重 试"
-                app:strokeColor="@color/colorPrimary"
-                />
+                android:textColor="@color/white"
+                app:backgroundTint="@color/colorPrimary"
+                app:strokeColor="@color/colorPrimary" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/rightBtn"
