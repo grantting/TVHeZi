@@ -2,9 +2,12 @@ package com.github.tvbox.osc.ui.dialog;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.res.Resources;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.res.ResourcesCompat;
 
 import com.blankj.utilcode.util.ColorUtils;
 import com.github.tvbox.osc.R;
@@ -41,6 +44,11 @@ public class PlayingControlDialog extends BottomPopupView {
     protected void onCreate() {
         super.onCreate();
         mBinding = DialogPlayingControlBinding.bind(getPopupImplView());
+
+        // 动态设置 HorizontalScrollView 的宽度为 wrap_content
+        ViewGroup.LayoutParams layoutParams = mBinding.speedHorizontalScrollView.getLayoutParams();
+        layoutParams.width = ViewGroup.LayoutParams.WRAP_CONTENT;
+        mBinding.speedHorizontalScrollView.setLayoutParams(layoutParams);
 
         initView();
         initListener();
@@ -119,7 +127,6 @@ public class PlayingControlDialog extends BottomPopupView {
     /**
      * 点击直接调用controller里面声明好的点击事件,(不改动原逻辑,隐藏controller里的设置view,全由弹窗设置)
      * @param view 不为空变更配置文字,如更换播放器/缩放, 为空只操作点击之间,不需改变文字,如刷新/重播
-     * @param targetView
      */
     private void changeAndUpdateText(TextView view,TextView targetView){
         targetView.performClick();
@@ -136,15 +143,25 @@ public class PlayingControlDialog extends BottomPopupView {
         updateSpeedUi();
     }
 
-    private void updateSpeedUi(){
-        for (int i = 0; i <mBinding.containerSpeed.getChildCount(); i++) {
-            TextView tv= (TextView) mBinding.containerSpeed.getChildAt(i);
-            if (String.valueOf(mPlayer.getSpeed()).equals(tv.getText().toString().replace("x",""))){
-                tv.setBackground(getResources().getDrawable(R.drawable.bg_r_common_solid_primary));
-                tv.setTextColor(ColorUtils.getColor(R.color.white));
-            }else {
-                tv.setBackground(getResources().getDrawable(R.drawable.bg_r_common_stroke_primary));
-                tv.setTextColor(ColorUtils.getColor(R.color.text_foreground));
+    private void updateSpeedUi() {
+        // 获取资源和颜色
+        Resources resources = getResources();
+        int colorWhite = ColorUtils.getColor(R.color.white);
+        int colorPrimary = ColorUtils.getColor(R.color.colorPrimary);
+
+        for (int i = 0; i < mBinding.containerSpeed.getChildCount(); i++) {
+            TextView tv = (TextView) mBinding.containerSpeed.getChildAt(i);
+            String speedText = tv.getText().toString().replace("x", "");
+            boolean isCurrentSpeed = String.valueOf(mPlayer.getSpeed()).equals(speedText);
+
+            if (isCurrentSpeed) {
+                // 设置背景和文字颜色为白色
+                tv.setBackground(ResourcesCompat.getDrawable(resources, R.drawable.bg_r_common_solid_primary, null));
+                tv.setTextColor(colorWhite);
+            } else {
+                // 设置背景和文字颜色为主色
+                tv.setBackground(ResourcesCompat.getDrawable(resources, R.drawable.bg_r_common_stroke_primary, null));
+                tv.setTextColor(colorPrimary);
             }
         }
     }

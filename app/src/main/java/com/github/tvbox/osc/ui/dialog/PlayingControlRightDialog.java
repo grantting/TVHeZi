@@ -1,10 +1,13 @@
 package com.github.tvbox.osc.ui.dialog;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.res.Resources;
 import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.res.ResourcesCompat;
 
 import com.blankj.utilcode.util.ColorUtils;
 import com.github.tvbox.osc.R;
@@ -16,6 +19,7 @@ import com.lxj.xpopup.core.DrawerPopupView;
 
 import org.jetbrains.annotations.NotNull;
 
+@SuppressLint("ViewConstructor")
 public class PlayingControlRightDialog extends DrawerPopupView {
 
     @NonNull
@@ -66,6 +70,8 @@ public class PlayingControlRightDialog extends DrawerPopupView {
         mBinding.speed3.setOnClickListener(view -> setSpeed(mBinding.speed3));
         mBinding.speed4.setOnClickListener(view -> setSpeed(mBinding.speed4));
         mBinding.speed5.setOnClickListener(view -> setSpeed(mBinding.speed5));
+        mBinding.speed6.setOnClickListener(view -> setSpeed(mBinding.speed6));
+        mBinding.speed7.setOnClickListener(view -> setSpeed(mBinding.speed7));
 
         //播放器
         mBinding.scale.setOnClickListener(view -> changeAndUpdateText(mBinding.scale,mController.mPlayerScaleBtn));
@@ -121,7 +127,6 @@ public class PlayingControlRightDialog extends DrawerPopupView {
     /**
      * 点击直接调用controller里面声明好的点击事件,(不改动原逻辑,隐藏controller里的设置view,全由弹窗设置)
      * @param view 不为空变更配置文字,如更换播放器/缩放, 为空只操作点击之间,不需改变文字,如刷新/重播
-     * @param targetView
      */
     private void changeAndUpdateText(TextView view,TextView targetView){
         targetView.performClick();
@@ -138,15 +143,25 @@ public class PlayingControlRightDialog extends DrawerPopupView {
         updateSpeedUi();
     }
 
-    private void updateSpeedUi(){
-        for (int i = 0; i <mBinding.containerSpeed.getChildCount(); i++) {
-            TextView tv= (TextView) mBinding.containerSpeed.getChildAt(i);
-            if (String.valueOf(mPlayer.getSpeed()).equals(tv.getText().toString().replace("x",""))){
-                tv.setBackground(getResources().getDrawable(R.drawable.bg_r_common_solid_primary));
-                tv.setTextColor(ColorUtils.getColor(R.color.white));
-            }else {
-                tv.setBackground(getResources().getDrawable(R.drawable.bg_r_common_stroke_primary));
-                tv.setTextColor(ColorUtils.getColor(R.color.text_foreground));
+    private void updateSpeedUi() {
+        // 获取资源和颜色
+        Resources resources = getResources();
+        int colorWhite = ColorUtils.getColor(R.color.white);
+        int colorPrimary = ColorUtils.getColor(R.color.colorPrimary);
+
+        for (int i = 0; i < mBinding.containerSpeed.getChildCount(); i++) {
+            TextView tv = (TextView) mBinding.containerSpeed.getChildAt(i);
+            String speedText = tv.getText().toString().replace("x", "");
+            boolean isCurrentSpeed = String.valueOf(mPlayer.getSpeed()).equals(speedText);
+
+            if (isCurrentSpeed) {
+                // 设置背景和文字颜色为白色
+                tv.setBackground(ResourcesCompat.getDrawable(resources, R.drawable.bg_r_common_solid_primary, null));
+                tv.setTextColor(colorWhite);
+            } else {
+                // 设置背景和文字颜色为主色
+                tv.setBackground(ResourcesCompat.getDrawable(resources, R.drawable.bg_r_common_stroke_primary, null));
+                tv.setTextColor(colorPrimary);
             }
         }
     }
