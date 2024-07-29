@@ -166,6 +166,7 @@ dependencies {
     implementation project(":crash")
     //dlna投屏
     implementation 'com.github.devin1014.DLNA-Cast:dlna-dmc:V1.0.0'
+    implementation'javax.servlet:javax.servlet-api:4.0.1'
     // Lifecycles only (without ViewModel or LiveData)
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.2.0"
 }
