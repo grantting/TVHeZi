@@ -1,5 +1,6 @@
 package com.github.tvbox.osc.ui.dialog;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.widget.TextView;
 
@@ -15,6 +16,7 @@ import com.lxj.xpopup.core.BottomPopupView;
 
 import org.jetbrains.annotations.NotNull;
 
+@SuppressLint("ViewConstructor")
 public class PlayingControlDialog extends BottomPopupView {
 
     @NonNull
@@ -62,6 +64,8 @@ public class PlayingControlDialog extends BottomPopupView {
         mBinding.speed3.setOnClickListener(view -> setSpeed(mBinding.speed3));
         mBinding.speed4.setOnClickListener(view -> setSpeed(mBinding.speed4));
         mBinding.speed5.setOnClickListener(view -> setSpeed(mBinding.speed5));
+        mBinding.speed6.setOnClickListener(view -> setSpeed(mBinding.speed6));
+        mBinding.speed7.setOnClickListener(view -> setSpeed(mBinding.speed7));
 
         //播放器
         mBinding.scale.setOnClickListener(view -> changeAndUpdateText(mBinding.scale,mController.mPlayerScaleBtn));
