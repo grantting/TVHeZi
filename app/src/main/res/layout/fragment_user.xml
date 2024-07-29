@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/tvHotList1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem="@layout/item_grid"
-        tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        tools:spanCount="3"
         android:paddingHorizontal="10dp"
-        />
+        tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        tools:listitem="@layout/item_grid"
+        tools:spanCount="5" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btn_live"
@@ -24,9 +23,8 @@
         android:layout_alignParentBottom="true"
         android:layout_margin="20dp"
         android:backgroundTint="@color/colorPrimary"
-        app:borderWidth="0dp"
         android:src="@drawable/ic_live_tv_48"
-        app:tint="@android:color/white"
-        />
+        app:borderWidth="0dp"
+        app:tint="@android:color/white" />
 
 </RelativeLayout>
