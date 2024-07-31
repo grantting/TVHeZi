@@ -58,7 +58,9 @@ class SettingActivity : BaseVbActivity<ActivitySettingBinding>() {
             PlayerHelper.getRenderName(Hawk.get(HawkConfig.PLAY_RENDER, 0))
 
         mBinding.switchPrivateBrowsing.setChecked(Hawk.get(HawkConfig.PRIVATE_BROWSING, false))
-        mBinding.llPrivateBrowsing.setOnClickListener { view: View? ->
+        mBinding.llPrivateBrowsing.setOnClickListener {
+                _: View? ->
+
             val newConfig = !Hawk.get(HawkConfig.PRIVATE_BROWSING, false)
             mBinding.switchPrivateBrowsing.setChecked(newConfig)
             Hawk.put(HawkConfig.PRIVATE_BROWSING, newConfig)
@@ -174,8 +176,9 @@ class SettingActivity : BaseVbActivity<ActivitySettingBinding>() {
 
         mBinding.llMediaCodec.setOnClickListener { v: View? ->
             val ijkCodes = ApiConfig.get().ijkCodes
-            if (ijkCodes == null || ijkCodes.size == 0) return@setOnClickListener
+            if (ijkCodes == null || ijkCodes.isEmpty()) return@setOnClickListener
             FastClickCheckUtil.check(v)
+
             var defaultPos = 0
             val ijkSel = Hawk.get(HawkConfig.IJK_CODEC, "")
             for (j in ijkCodes.indices) {
@@ -184,26 +187,28 @@ class SettingActivity : BaseVbActivity<ActivitySettingBinding>() {
                     break
                 }
             }
-            val dialog = SelectDialog<IJKCode>(this@SettingActivity)
-            dialog.setTip("请选择IJK解码")
-            dialog.setAdapter(object : SelectDialogInterface<IJKCode?> {
-                override fun click(value: IJKCode?, pos: Int) {
-                    value?.selected(true)
-                    mBinding.tvMediaCodec.text = value?.name
-                }
 
-                override fun getDisplay(code: IJKCode?): String {
-                    return code?.name ?: ""
-                }
-            }, object : DiffUtil.ItemCallback<IJKCode>() {
-                override fun areItemsTheSame(oldItem: IJKCode, newItem: IJKCode): Boolean {
-                    return oldItem === newItem
-                }
+            val dialog = SelectDialog<IJKCode>(this@SettingActivity).apply {
+                setTip("请选择IJK解码")
+                setAdapter(object : SelectDialogInterface<IJKCode?> {
+                    override fun click(value: IJKCode?, pos: Int) {
+                        value?.selected(true)
+                        mBinding.tvMediaCodec.text = value?.name
+                    }
 
-                override fun areContentsTheSame(oldItem: IJKCode, newItem: IJKCode): Boolean {
-                    return oldItem.name.contentEquals(newItem.name)
-                }
-            }, ijkCodes, defaultPos)
+                    override fun getDisplay(code: IJKCode?): String {
+                        return code?.name ?: ""
+                    }
+                }, object : DiffUtil.ItemCallback<IJKCode>() {
+                    override fun areItemsTheSame(oldItem: IJKCode, newItem: IJKCode): Boolean {
+                        return oldItem === newItem
+                    }
+
+                    override fun areContentsTheSame(oldItem: IJKCode, newItem: IJKCode): Boolean {
+                        return oldItem.name!!.contentEquals(newItem.name)
+                    }
+                }, ijkCodes, defaultPos)
+            }
             dialog.show()
         }
 
@@ -376,22 +381,21 @@ class SettingActivity : BaseVbActivity<ActivitySettingBinding>() {
         val oldTheme = Hawk.get(HawkConfig.THEME_TAG, 0)
         val themes = arrayOf("跟随系统", "浅色", "深色")
         mBinding.tvTheme.text = themes[oldTheme]
-        mBinding.llTheme.setOnClickListener(View.OnClickListener { view: View? ->
+        mBinding.llTheme.setOnClickListener {
+                view: View? ->
+
             FastClickCheckUtil.check(view)
-            val types = ArrayList<Int>()
-            types.add(0)
-            types.add(1)
-            types.add(2)
+            val types = listOf(0, 1, 2)
             val dialog = SelectDialog<Int>(this@SettingActivity)
             dialog.setTip("请选择")
             dialog.setAdapter(object : SelectDialogInterface<Int?> {
                 override fun click(value: Int?, pos: Int) {
-                    mBinding.tvTheme.text = themes[value?:0]
+                    mBinding.tvTheme.text = themes[value ?: 0]
                     Hawk.put(HawkConfig.THEME_TAG, value)
                 }
 
                 override fun getDisplay(value: Int?): String {
-                    return themes[value?:0]
+                    return themes[value ?: 0]
                 }
             }, object : DiffUtil.ItemCallback<Int>() {
                 override fun areItemsTheSame(oldItem: Int, newItem: Int): Boolean {
@@ -402,7 +406,10 @@ class SettingActivity : BaseVbActivity<ActivitySettingBinding>() {
                     return oldItem == newItem
                 }
             }, types, oldTheme)
-            dialog.setOnDismissListener { dialog1: DialogInterface? ->
+            dialog.setOnDismissListener {
+                // 使用 '_' 表示未使用的参数
+                    _: DialogInterface? ->
+
                 if (oldTheme != Hawk.get(HawkConfig.THEME_TAG, 0)) {
                     Utils.initTheme()
                     val bundle = Bundle()
@@ -411,7 +418,7 @@ class SettingActivity : BaseVbActivity<ActivitySettingBinding>() {
                 }
             }
             dialog.show()
-        })
+        }
 
         mBinding.switchVideoPurify.setChecked(Hawk.get(HawkConfig.VIDEO_PURIFY, true))
         // toggle purify video -------------------------------------
