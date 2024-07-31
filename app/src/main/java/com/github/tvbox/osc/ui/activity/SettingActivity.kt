@@ -96,7 +96,7 @@ class SettingActivity : BaseVbActivity<ActivitySettingBinding>() {
             dialog.show()
         }
 
-        mBinding.tvSpeed.text = Hawk.get(HawkConfig.VIDEO_SPEED, 2.0f).toString()
+        mBinding.tvSpeed.text = Hawk.get(HawkConfig.VIDEO_SPEED, 3.0f).toString()
         mBinding.llPressSpeed.setOnClickListener {
             val types = ArrayList<String>()
             types.add("2.0")
