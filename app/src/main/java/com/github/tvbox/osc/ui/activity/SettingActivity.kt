@@ -104,7 +104,7 @@ class SettingActivity : BaseVbActivity<ActivitySettingBinding>() {
             types.add("6.0")
             types.add("8.0")
             types.add("10.0")
-            val defaultPos = types.indexOf(Hawk.get(HawkConfig.VIDEO_SPEED, 2.0f).toString())
+            val defaultPos = types.indexOf(Hawk.get(HawkConfig.VIDEO_SPEED, 3.0f).toString())
             val dialog = SelectDialog<String>(this@SettingActivity)
             dialog.setTip("请选择")
             dialog.setAdapter(object : SelectDialogInterface<String?> {
